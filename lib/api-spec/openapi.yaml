@@ -3,20 +3,32 @@ info:
   # Do not change the title, if the title changes, the import paths will be broken
   title: Api
   version: 0.1.0
-  description: API specification
+  description: SakhiPath API - AI-powered career empowerment platform for women in STEM
 servers:
   - url: /api
     description: Base API path
 tags:
   - name: health
     description: Health operations
+  - name: ai
+    description: AI-powered features via Gemini
+  - name: scholarships
+    description: Scholarship and scheme discovery
+  - name: learning
+    description: Learning modules and quizzes
+  - name: mentors
+    description: Mentor directory and requests
+  - name: career
+    description: Career confidence and scoring
+  - name: dashboard
+    description: Dashboard aggregates and activity feeds
+
 paths:
   /healthz:
     get:
       operationId: healthCheck
       tags: [health]
       summary: Health check
-      description: Returns server health status
       responses:
         "200":
           description: Healthy
@@ -24,8 +36,419 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/HealthStatus"
+
+  # ── AI endpoints ────────────────────────────────────────────────────────────
+
+  /ai/career-advice:
+    post:
+      operationId: generateCareerAdvice
+      tags: [ai]
+      summary: Generate AI career mentorship response
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CareerAdviceInput"
+      responses:
+        "200":
+          description: Career advice generated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AiResponse"
+        "400":
+          description: Invalid input
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /ai/resume-feedback:
+    post:
+      operationId: generateResumeFeedback
+      tags: [ai]
+      summary: Analyze resume and generate feedback
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ResumeFeedbackInput"
+      responses:
+        "200":
+          description: Resume analysis generated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResumeAnalysis"
+
+  /ai/interview-questions:
+    post:
+      operationId: generateInterviewQuestions
+      tags: [ai]
+      summary: Generate interview questions for a role
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/InterviewQuestionsInput"
+      responses:
+        "200":
+          description: Interview questions generated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AiResponse"
+
+  /ai/learning-plan:
+    post:
+      operationId: generateLearningPlan
+      tags: [ai]
+      summary: Generate a personalized learning plan
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LearningPlanInput"
+      responses:
+        "200":
+          description: Learning plan generated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AiResponse"
+
+  /ai/scholarship-recommendations:
+    post:
+      operationId: generateScholarshipRecommendations
+      tags: [ai]
+      summary: Get AI-powered scholarship recommendations
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ScholarshipRecoInput"
+      responses:
+        "200":
+          description: Scholarship recommendations generated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AiResponse"
+
+  /ai/financial-literacy:
+    post:
+      operationId: generateFinancialLiteracyContent
+      tags: [ai]
+      summary: Generate financial literacy explanation
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/FinancialLiteracyInput"
+      responses:
+        "200":
+          description: Financial literacy content generated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AiResponse"
+
+  /ai/career-confidence:
+    post:
+      operationId: calculateCareerConfidence
+      tags: [ai]
+      summary: Calculate career confidence score with AI insights
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CareerConfidenceInput"
+      responses:
+        "200":
+          description: Career confidence score
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CareerConfidenceResult"
+
+  /ai/conversations:
+    post:
+      operationId: saveConversation
+      tags: [ai]
+      summary: Save an AI conversation session
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ConversationInput"
+      responses:
+        "201":
+          description: Conversation saved
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Conversation"
+
+  /ai/conversations/{sessionId}:
+    get:
+      operationId: getConversationHistory
+      tags: [ai]
+      summary: Get conversation history for a session
+      parameters:
+        - name: sessionId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Conversation history
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Conversation"
+
+  # ── Scholarships ─────────────────────────────────────────────────────────────
+
+  /scholarships:
+    get:
+      operationId: listScholarships
+      tags: [scholarships]
+      summary: List scholarships with optional filters
+      parameters:
+        - name: category
+          in: query
+          schema:
+            type: string
+        - name: search
+          in: query
+          schema:
+            type: string
+        - name: limit
+          in: query
+          schema:
+            type: integer
+        - name: offset
+          in: query
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: List of scholarships
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ScholarshipList"
+
+  /scholarships/{id}:
+    get:
+      operationId: getScholarship
+      tags: [scholarships]
+      summary: Get scholarship details
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Scholarship details
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Scholarship"
+
+  # ── Learning ─────────────────────────────────────────────────────────────────
+
+  /learning/modules:
+    get:
+      operationId: listLearningModules
+      tags: [learning]
+      summary: List all learning modules
+      parameters:
+        - name: category
+          in: query
+          schema:
+            type: string
+      responses:
+        "200":
+          description: List of learning modules
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/LearningModuleList"
+
+  /learning/modules/{id}:
+    get:
+      operationId: getLearningModule
+      tags: [learning]
+      summary: Get learning module details
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Learning module details
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/LearningModule"
+
+  /learning/quiz-results:
+    post:
+      operationId: saveQuizResult
+      tags: [learning]
+      summary: Save a quiz result
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/QuizResultInput"
+      responses:
+        "201":
+          description: Quiz result saved
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/QuizResult"
+
+  /learning/progress/{userId}:
+    get:
+      operationId: getLearningProgress
+      tags: [learning]
+      summary: Get learning progress for a user
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: User learning progress
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/LearningProgress"
+
+  # ── Mentors ──────────────────────────────────────────────────────────────────
+
+  /mentors:
+    get:
+      operationId: listMentors
+      tags: [mentors]
+      summary: List mentors with optional filters
+      parameters:
+        - name: specialization
+          in: query
+          schema:
+            type: string
+        - name: search
+          in: query
+          schema:
+            type: string
+      responses:
+        "200":
+          description: List of mentors
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MentorList"
+
+  /mentors/requests:
+    post:
+      operationId: createMentorRequest
+      tags: [mentors]
+      summary: Request a mentor session
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/MentorRequestInput"
+      responses:
+        "201":
+          description: Mentor request created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MentorRequest"
+
+  /mentors/requests/{userId}:
+    get:
+      operationId: getMentorRequests
+      tags: [mentors]
+      summary: Get mentor requests for a user
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: List of mentor requests
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MentorRequestList"
+
+  # ── Dashboard ────────────────────────────────────────────────────────────────
+
+  /dashboard/summary/{userId}:
+    get:
+      operationId: getDashboardSummary
+      tags: [dashboard]
+      summary: Get dashboard summary for a user
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Dashboard summary
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DashboardSummary"
+
+  /dashboard/activity/{userId}:
+    get:
+      operationId: listUserActivity
+      tags: [dashboard]
+      summary: Get recent activity feed for a user
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Recent activity feed
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ActivityFeed"
+
 components:
   schemas:
+
     HealthStatus:
       type: object
       properties:
@@ -34,3 +457,647 @@ components:
       required:
         - status
 
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+      required:
+        - error
+
+    # ── AI schemas ──────────────────────────────────────────────────────────────
+
+    AiResponse:
+      type: object
+      properties:
+        content:
+          type: string
+        sessionId:
+          type: ["string", "null"]
+        tokensUsed:
+          type: ["integer", "null"]
+      required:
+        - content
+
+    CareerAdviceInput:
+      type: object
+      properties:
+        message:
+          type: string
+        sessionId:
+          type: ["string", "null"]
+        userId:
+          type: ["string", "null"]
+        careerStage:
+          type: ["string", "null"]
+        persona:
+          type: ["string", "null"]
+        history:
+          type: array
+          items:
+            $ref: "#/components/schemas/ChatMessage"
+      required:
+        - message
+
+    ChatMessage:
+      type: object
+      properties:
+        role:
+          type: string
+          enum: [user, assistant]
+        content:
+          type: string
+      required:
+        - role
+        - content
+
+    ResumeFeedbackInput:
+      type: object
+      properties:
+        resumeText:
+          type: string
+        targetRole:
+          type: ["string", "null"]
+        userId:
+          type: ["string", "null"]
+      required:
+        - resumeText
+
+    ResumeAnalysis:
+      type: object
+      properties:
+        score:
+          type: integer
+        strengths:
+          type: array
+          items:
+            type: string
+        weaknesses:
+          type: array
+          items:
+            type: string
+        improvements:
+          type: array
+          items:
+            type: string
+        summary:
+          type: string
+      required:
+        - score
+        - strengths
+        - weaknesses
+        - improvements
+        - summary
+
+    InterviewQuestionsInput:
+      type: object
+      properties:
+        role:
+          type: string
+        level:
+          type: ["string", "null"]
+        userId:
+          type: ["string", "null"]
+      required:
+        - role
+
+    LearningPlanInput:
+      type: object
+      properties:
+        goals:
+          type: array
+          items:
+            type: string
+        currentSkills:
+          type: array
+          items:
+            type: string
+        timeframe:
+          type: ["string", "null"]
+        userId:
+          type: ["string", "null"]
+      required:
+        - goals
+        - currentSkills
+
+    ScholarshipRecoInput:
+      type: object
+      properties:
+        profile:
+          type: string
+        fieldOfStudy:
+          type: ["string", "null"]
+        careerStage:
+          type: ["string", "null"]
+        userId:
+          type: ["string", "null"]
+      required:
+        - profile
+
+    FinancialLiteracyInput:
+      type: object
+      properties:
+        topic:
+          type: string
+        level:
+          type: ["string", "null"]
+        userId:
+          type: ["string", "null"]
+      required:
+        - topic
+
+    CareerConfidenceInput:
+      type: object
+      properties:
+        userId:
+          type: string
+        completedModules:
+          type: integer
+        quizzesPassed:
+          type: integer
+        mentorSessions:
+          type: integer
+        aiSessions:
+          type: integer
+        profileCompleteness:
+          type: integer
+      required:
+        - userId
+        - completedModules
+        - quizzesPassed
+        - mentorSessions
+        - aiSessions
+        - profileCompleteness
+
+    CareerConfidenceResult:
+      type: object
+      properties:
+        score:
+          type: integer
+        level:
+          type: string
+        insights:
+          type: string
+        breakdown:
+          type: object
+          properties:
+            learning:
+              type: integer
+            mentoring:
+              type: integer
+            aiEngagement:
+              type: integer
+            profileCompleteness:
+              type: integer
+          required:
+            - learning
+            - mentoring
+            - aiEngagement
+            - profileCompleteness
+      required:
+        - score
+        - level
+        - insights
+        - breakdown
+
+    ConversationInput:
+      type: object
+      properties:
+        userId:
+          type: string
+        title:
+          type: ["string", "null"]
+        messages:
+          type: array
+          items:
+            $ref: "#/components/schemas/ChatMessage"
+        type:
+          type: string
+          enum: [career, resume, interview, learning, financial]
+      required:
+        - userId
+        - messages
+        - type
+
+    Conversation:
+      type: object
+      properties:
+        id:
+          type: string
+        userId:
+          type: string
+        title:
+          type: ["string", "null"]
+        messages:
+          type: array
+          items:
+            $ref: "#/components/schemas/ChatMessage"
+        type:
+          type: string
+        createdAt:
+          type: string
+        updatedAt:
+          type: string
+      required:
+        - id
+        - userId
+        - messages
+        - type
+        - createdAt
+        - updatedAt
+
+    # ── Scholarship schemas ─────────────────────────────────────────────────────
+
+    Scholarship:
+      type: object
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        provider:
+          type: string
+        amount:
+          type: string
+        deadline:
+          type: ["string", "null"]
+        eligibility:
+          type: string
+        category:
+          type: string
+        applicationUrl:
+          type: ["string", "null"]
+        description:
+          type: string
+        isActive:
+          type: boolean
+      required:
+        - id
+        - title
+        - provider
+        - amount
+        - eligibility
+        - category
+        - description
+        - isActive
+
+    ScholarshipList:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: "#/components/schemas/Scholarship"
+        total:
+          type: integer
+      required:
+        - items
+        - total
+
+    # ── Learning schemas ────────────────────────────────────────────────────────
+
+    LearningModule:
+      type: object
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        description:
+          type: string
+        category:
+          type: string
+        durationMinutes:
+          type: integer
+        difficulty:
+          type: string
+          enum: [beginner, intermediate, advanced]
+        tags:
+          type: array
+          items:
+            type: string
+        content:
+          type: ["string", "null"]
+        quizQuestions:
+          type: array
+          items:
+            $ref: "#/components/schemas/QuizQuestion"
+      required:
+        - id
+        - title
+        - description
+        - category
+        - durationMinutes
+        - difficulty
+        - tags
+        - quizQuestions
+
+    QuizQuestion:
+      type: object
+      properties:
+        question:
+          type: string
+        options:
+          type: array
+          items:
+            type: string
+        correctIndex:
+          type: integer
+        explanation:
+          type: string
+      required:
+        - question
+        - options
+        - correctIndex
+        - explanation
+
+    LearningModuleList:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: "#/components/schemas/LearningModule"
+        total:
+          type: integer
+      required:
+        - items
+        - total
+
+    QuizResultInput:
+      type: object
+      properties:
+        userId:
+          type: string
+        moduleId:
+          type: integer
+        score:
+          type: integer
+        totalQuestions:
+          type: integer
+        timeTakenSeconds:
+          type: integer
+      required:
+        - userId
+        - moduleId
+        - score
+        - totalQuestions
+
+    QuizResult:
+      type: object
+      properties:
+        id:
+          type: integer
+        userId:
+          type: string
+        moduleId:
+          type: integer
+        score:
+          type: integer
+        totalQuestions:
+          type: integer
+        percentage:
+          type: integer
+        passed:
+          type: boolean
+        createdAt:
+          type: string
+      required:
+        - id
+        - userId
+        - moduleId
+        - score
+        - totalQuestions
+        - percentage
+        - passed
+        - createdAt
+
+    LearningProgress:
+      type: object
+      properties:
+        userId:
+          type: string
+        completedModules:
+          type: integer
+        totalModules:
+          type: integer
+        averageScore:
+          type: integer
+        badges:
+          type: array
+          items:
+            type: string
+        recentResults:
+          type: array
+          items:
+            $ref: "#/components/schemas/QuizResult"
+      required:
+        - userId
+        - completedModules
+        - totalModules
+        - averageScore
+        - badges
+        - recentResults
+
+    # ── Mentor schemas ──────────────────────────────────────────────────────────
+
+    Mentor:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        title:
+          type: string
+        organization:
+          type: string
+        specializations:
+          type: array
+          items:
+            type: string
+        bio:
+          type: string
+        yearsExperience:
+          type: integer
+        rating:
+          type: number
+        totalSessions:
+          type: integer
+        availability:
+          type: string
+          enum: [available, limited, unavailable]
+        linkedinUrl:
+          type: ["string", "null"]
+        photoUrl:
+          type: ["string", "null"]
+      required:
+        - id
+        - name
+        - title
+        - organization
+        - specializations
+        - bio
+        - yearsExperience
+        - rating
+        - totalSessions
+        - availability
+
+    MentorList:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: "#/components/schemas/Mentor"
+        total:
+          type: integer
+      required:
+        - items
+        - total
+
+    MentorRequestInput:
+      type: object
+      properties:
+        userId:
+          type: string
+        mentorId:
+          type: integer
+        message:
+          type: string
+        preferredDate:
+          type: ["string", "null"]
+      required:
+        - userId
+        - mentorId
+        - message
+
+    MentorRequest:
+      type: object
+      properties:
+        id:
+          type: integer
+        userId:
+          type: string
+        mentorId:
+          type: integer
+        message:
+          type: string
+        preferredDate:
+          type: ["string", "null"]
+        status:
+          type: string
+          enum: [pending, accepted, declined, completed]
+        createdAt:
+          type: string
+      required:
+        - id
+        - userId
+        - mentorId
+        - message
+        - status
+        - createdAt
+
+    MentorRequestList:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: "#/components/schemas/MentorRequest"
+        total:
+          type: integer
+      required:
+        - items
+        - total
+
+    # ── Dashboard schemas ───────────────────────────────────────────────────────
+
+    DashboardSummary:
+      type: object
+      properties:
+        userId:
+          type: string
+        careerConfidenceScore:
+          type: integer
+        completedModules:
+          type: integer
+        totalModules:
+          type: integer
+        activeMentorRequests:
+          type: integer
+        aiSessionsCount:
+          type: integer
+        scholarshipsBookmarked:
+          type: integer
+        upcomingDeadlines:
+          type: array
+          items:
+            $ref: "#/components/schemas/UpcomingDeadline"
+        weeklyGoalProgress:
+          type: integer
+      required:
+        - userId
+        - careerConfidenceScore
+        - completedModules
+        - totalModules
+        - activeMentorRequests
+        - aiSessionsCount
+        - scholarshipsBookmarked
+        - upcomingDeadlines
+        - weeklyGoalProgress
+
+    UpcomingDeadline:
+      type: object
+      properties:
+        title:
+          type: string
+        deadline:
+          type: string
+        type:
+          type: string
+          enum: [scholarship, learning, mentor]
+      required:
+        - title
+        - deadline
+        - type
+
+    ActivityItem:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum: [ai_chat, quiz_completed, mentor_request, scholarship_bookmark, module_completed]
+        description:
+          type: string
+        timestamp:
+          type: string
+        metadata:
+          type: object
+          properties:
+            score:
+              type: ["integer", "null"]
+            moduleName:
+              type: ["string", "null"]
+          required: []
+      required:
+        - id
+        - type
+        - description
+        - timestamp
+        - metadata
+
+    ActivityFeed:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: "#/components/schemas/ActivityItem"
+        total:
+          type: integer
+      required:
+        - items
+        - total

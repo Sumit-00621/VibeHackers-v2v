@@ -1,0 +1,4 @@
+- [Zod subpath imports in API server](zod-api-server.md) — use `import { z } from "zod"` not `"zod/v4"` in api-server routes; esbuild cannot resolve the subpath without zod in package.json dependencies.
+- [Firebase HMR duplicate-app guard](firebase-hmr.md) — always use `getApps().length === 0 ? initializeApp(config) : getApp()` pattern to prevent duplicate-app errors during Vite HMR.
+- [Orval Params naming collision](orval-params-collision.md) — endpoints with both path + query params can produce duplicate `<OperationId>Params` exports; rename operationId (e.g. `getRecentActivity` → `listUserActivity`) to resolve TS2308.
+- [Query hook options require queryKey](query-hook-querykey.md) — generated query hooks require `queryKey` inside the `query` options object; omitting it causes TS2741 errors in strict mode.
