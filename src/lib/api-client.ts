@@ -1046,10 +1046,16 @@ export function useGenerateCareerAdvice() {
         safetySettings: SAFETY_SETTINGS,
       });
       
-      const chatHistory = (data.history || []).map(msg => ({
+      let chatHistory = (data.history || []).map(msg => ({
         role: msg.role === "assistant" ? "model" as const : "user" as const,
         parts: [{ text: msg.content }],
       }));
+
+      // The Gemini API requires the first message in startChat history to be from the user.
+      // If the history starts with a model greeting, we slice it out.
+      if (chatHistory.length > 0 && chatHistory[0].role === "model") {
+        chatHistory = chatHistory.slice(1);
+      }
       
       const contextPrefix = data.careerStage
         ? `[Context: Career stage: ${data.careerStage}, Persona: ${data.persona || "not specified"}]\n\n`
