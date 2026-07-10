@@ -291,8 +291,7 @@ README.md
 > Add your application screenshots here.
 
 ```
-Home Page <img width="1600" height="748" alt="WhatsApp Image 2026-07-10 at 13 06 06" src="https://github.com/user-attachments/assets/ce1979e8-b60e-41e0-9221-2ed731131bea" />
-
+Home Page 
 
 Dashboard
 
