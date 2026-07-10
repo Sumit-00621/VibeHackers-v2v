@@ -212,13 +212,13 @@ cd VibeHackers-v2v
 Install dependencies
 
 ```bash
-npm install
+pnpm install
 ```
 
 Start development server
 
 ```bash
-npm run dev
+pnpm run dev
 ```
 
 ---
@@ -286,39 +286,16 @@ README.md
 
 ---
 
-# 📸 Screenshots
-
-> Add your application screenshots here.
-
-```
-Home Page 
-
-Dashboard
-
-AI Mentor
-
-Resume Analyzer
-
-Interview Module
-```
-
----
-
 # 🎥 Demo Video
 
-Add your demo video link here.
 
-```
 https://drive.google.com/file/d/1w3-Mg6n--gcujoD8POL6B3YZdjkQneUW/view?usp=sharing
-```
 
 ---
 
 # 🌐 Live Demo
 
-```
 https://vibe-hackers-v2v.vercel.app/
-```
 
 ---
 
