@@ -366,6 +366,6 @@ Sakhi path aims to democratize access to career advice, personalized learning, a
 
 **"Every woman deserves access to opportunities, guidance, and a brighter future."**
 
-Made with ❤️ by Team ElevateHer
+Made with ❤️ by Team VibeHackers
 
 </div>
