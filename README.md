@@ -1,4 +1,4 @@
-# 🌸 ElevateHer AI
+# 🌸 Sakhi path
 ### Empowering Women Through AI-Powered Career Guidance, Skill Development & Mentorship
 
 <div align="center">
@@ -14,7 +14,7 @@
 
 # 📌 Problem Statement
 
-## **Track 3 — ElevateHer: Education, FinTech & Career Empowerment**
+## **Track 3 — Sakhi path: Education, FinTech & Career Empowerment**
 
 Build innovative solutions that improve access to:
 
@@ -161,7 +161,7 @@ Track:
 
 ## Deployment
 
-- Firebase Hosting / Vercel
+- Vercel
 
 ---
 
@@ -326,16 +326,16 @@ https://your-live-demo-link.com
 
 | Name | Role |
 |------|------|
-| Rajani Chaudhary | Frontend Developer |
-| Sumit | Full Stack Developer |
-| Member 3 | AI/Backend |
-| Member 4 | UI/UX Designer |
+| Rajani Chaudhary | Documentation and prototype |
+| Sumit | Frontend Developer |
+| Kalpana | Presentation |
+
 
 ---
 
 # 🏆 Hackathon Track
 
-## ElevateHer
+## Sakhi path
 
 **Education • FinTech • Career Empowerment**
 
@@ -345,15 +345,10 @@ https://your-live-demo-link.com
 
 Women often face barriers in education and career growth due to limited mentorship, guidance, and opportunities.
 
-ElevateHer AI aims to democratize access to career advice, personalized learning, and AI-driven mentorship—making quality career support available to every woman, anytime and anywhere.
+Sakhi path aims to democratize access to career advice, personalized learning, and AI-driven mentorship—making quality career support available to every woman, anytime and anywhere.
 
 ---
 
-# 📜 License
-
-MIT License
-
----
 
 # 🙏 Acknowledgements
 
