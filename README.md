@@ -30,9 +30,9 @@ with a special focus on **women**, especially those aspiring to build careers in
 
 # 💡 Proposed Solution
 
-## **ElevateHer AI**
+## **Sakhi path**
 
-ElevateHer AI is an intelligent AI-powered platform designed to bridge the gap between women and career opportunities.
+Sakhi path is an intelligent AI-powered platform designed to bridge the gap between women and career opportunities.
 
 Our solution leverages Artificial Intelligence to provide:
 
