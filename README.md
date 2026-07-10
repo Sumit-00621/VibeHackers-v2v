@@ -317,8 +317,6 @@ https://youtu.be/your-demo-link
 # 🌐 Live Demo
 
 ```
-https://your-live-demo-link.com
-```
 https://vibe-hackers-v2v.vercel.app/
 ---
 
