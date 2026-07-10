@@ -318,8 +318,11 @@ https://youtu.be/your-demo-link
 
 ```
 https://vibe-hackers-v2v.vercel.app/
+```
+
 ---
----
+
+
 # 👥 Team Details
 
 | Name | Role |
