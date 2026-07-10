@@ -49,7 +49,7 @@ export * from "./api-client.schemas.js";
 // ============================================================================
 const getGeminiClient = () => {
   const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
-  if (!apiKey || apiKey === "dummy_gemini_api_key") {
+  if (!apiKey || apiKey === "dummy_gemini_api_key" || apiKey === "your_gemini_api_key_here" || apiKey === "not-configured") {
     console.warn("VITE_GEMINI_API_KEY is not configured. AI features will fallback to dummy responses.");
     return null;
   }
